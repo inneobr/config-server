@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: server-config
+  cloud:
+    discovery:
+     enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true 
+          lowerCaseServiceId: true
+    config:
+      server:
+        git:
+          uri: https://github.com/inneobr/config-repo
+          search-paths:
+            - dev
+            - prod    
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7100/eureka
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+            
+server:
+  port: 7000    
+   
+logging:
+  level:
+    root: FATAL
